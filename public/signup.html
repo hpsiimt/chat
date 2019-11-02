@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login - Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <style>
+            ::selection {
+                background-color: #b5e2e7;
+            }
+            ::-moz-selection {
+                background-color: #8ac7d8;
+            }
+            body {
+                background: #3CC;
+            }
+            .container {
+                display: -webkit-flex;
+                display: flex;
+                height: 100%;
+            }
+            #logbox {
+                padding: 10px;
+                margin: 50px auto;
+                width: 340px;
+                background-color: #fff;
+                -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+                -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+                box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+            }
+            h1 {
+                text-align: center;
+                font-size: 175%;
+                color: #757575;
+                font-weight: 300;
+            }
+            h1, input {
+                font-family: "Open Sans", Helvetica, sans-serif;
+            }
+            .input {
+                width: 75%;
+                height: 50px;
+                display: block;
+                margin: 0 auto 15px;
+                padding: 0 15px;
+                border: none;
+                border-bottom: 2px solid #ebebeb;
+            }
+            .input:focus {
+                outline: none;
+                border-bottom-color: #3CC !important;
+            }
+            .input:hover {
+                border-bottom-color: #dcdcdc;
+            }
+            .input:invalid {
+                box-shadow: none;
+            }
+            .pass:-webkit-autofill {
+                -webkit-box-shadow: 0 0 0 1000px white inset;
+            }
+            .inputButton {
+                position: relative;
+                width: 85%;
+                height: 50px;
+                display: block;
+                margin: 30px auto 30px;
+                color: white;
+                background-color: #3CC;
+                border: none;
+                -webkit-box-shadow: 0 5px 0 #2CADAD;
+                -moz-box-shadow: 0 5px 0 #2CADAD;
+                box-shadow: 0 5px 0 #2CADAD;
+            }
+            .inputButton:hover {
+                top: 2px;
+                -webkit-box-shadow: 0 3px 0 #2CADAD;
+                -moz-box-shadow: 0 3px 0 #2CADAD;
+                box-shadow: 0 3px 0 #2CADAD;
+            }
+            .inputButton:active {
+                top: 5px;
+                box-shadow: none;
+            }
+            .inputButton:focus {
+                outline: none;
+            }
+        </style>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="col-md-12">
+                <div id="logbox">
+                    <form id="signup" method="post" action="/index.html" onsubmit="return checkUserLogin();">
+                        <h1>Account Login</h1>
+                        <input name="user_email" id="user_email" type="email" placeholder="Enter your email" class="input pass" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
+                        <input name="user_password" id="user_password" type="password" placeholder="Enter your password" required="required" class="input pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" oninvalid="setCustomValidity('Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters')" />
+                        <input type="submit" value="Sign me in!" class="inputButton"/>
+                       <div class="text-center"">
+                            <a href="register.html" >create an account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            function checkUserLogin() {
+                $.ajax({
+                    'method': "POST",
+                    'data': 'email='+ $.trim($("#user_email").val()) + '&password=' + $.trim($("#user_password").val()),
+                    'url': '/insertClient',
+                    success: function(result){
+                        console.log(result);
+                    },
+                    error: function(){
+                        console.log(result);
+                    }
+                })
+                return false;
+            }
+        </script>
+    </body>
+</html>
